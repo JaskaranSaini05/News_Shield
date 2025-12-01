@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Shield Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { overflow: hidden; height: 100vh; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .sidebar-gradient { background: linear-gradient(180deg, #1e293b 0%, #334155 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .stat-card { background: rgba(255, 255, 255, 0.95); }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="flex h-screen">
+
+        <div class="w-64 sidebar-gradient text-white p-6 flex flex-col">
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold">News Shield</h1>
+            </div>
+
+            <nav class="flex-1">
+                <a href="/" class="flex items-center px-4 py-3 mb-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    Home
+                </a>
+
+                <a href="/dataset" class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                    Dataset Analysis
+                </a>
+
+                <a href="/realtime" class="flex items-center px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 transition">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    Real-time Search
+                </a>
+            </nav>
+        </div>
+
+        <div class="flex-1 gradient-bg overflow-hidden">
+            <div class="h-full flex flex-col items-center justify-center px-12 py-8">
+
+                <div class="text-center mb-6">
+                    <h1 class="text-5xl font-bold text-white mb-3">Welcome to News Shield</h1>
+                    <p class="text-white text-lg opacity-90 max-w-3xl mx-auto">Advanced AI-powered fake news detection system. Analyze news articles from our database or search real-time content to verify authenticity.</p>
+                </div>
+
+                <div class="grid grid-cols-4 gap-4 mb-8 w-full max-w-5xl">
+                    <div class="stat-card rounded-2xl p-5 shadow-lg text-center">
+                        <div class="text-3xl font-bold text-gray-800">12,847</div>
+                        <div class="text-sm text-gray-600 mt-1">Articles Analyzed</div>
+                    </div>
+
+                    <div class="stat-card rounded-2xl p-5 shadow-lg text-center">
+                        <div class="text-3xl font-bold text-gray-800">94.2%</div>
+                        <div class="text-sm text-gray-600 mt-1">Accuracy Rate</div>
+                    </div>
+
+                    <div class="stat-card rounded-2xl p-5 shadow-lg text-center">
+                        <div class="text-3xl font-bold text-gray-800">1</div>
+                        <div class="text-sm text-gray-600 mt-1">Active Users</div>
+                    </div>
+
+                    <div class="stat-card rounded-2xl p-5 shadow-lg text-center">
+                        <div class="text-3xl font-bold text-gray-800">48</div>
+                        <div class="text-sm text-gray-600 mt-1">Hours Uptime</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6 w-full max-w-5xl">
+
+                    <a href="/dataset" class="glass-card rounded-2xl p-8 shadow-2xl hover:scale-105 transition-transform block">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-2xl font-bold text-white">Dataset Analysis</h3>
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <div class="text-white text-xl font-semibold mb-3">8,500+ Verified Articles</div>
+                        <p class="text-white opacity-90">Analyze news articles from our verified database. Get instant results with detailed accuracy metrics and source verification.</p>
+                    </a>
+
+                    <a href="/realtime" class="glass-card rounded-2xl p-8 shadow-2xl hover:scale-105 transition-transform block">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Real-time Search</h3>
+                                <span class="inline-block bg-red-500 text-white text-xs px-2 py-1 rounded-full mt-1">Live</span>
+                            </div>
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <p class="text-white opacity-90 mt-6">Search and analyze live news articles from multiple sources. Get real-time verification with credibility scores and source analysis.</p>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

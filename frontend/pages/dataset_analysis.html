@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Analysis - News Shield</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { overflow: hidden; height: 100vh; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .sidebar-gradient { background: linear-gradient(180deg, #1e293b 0%, #334155 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.25); }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="flex h-screen">
+
+        <div class="w-64 sidebar-gradient text-white p-6 flex flex-col">
+            <h1 class="text-2xl font-bold mb-8">News Shield</h1>
+
+            <nav class="flex-1">
+                <a href="/" class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition text-white">Home</a>
+                <a href="/dataset" class="flex items-center px-4 py-3 mb-2 rounded-lg bg-white bg-opacity-10 transition text-white">Dataset Analysis</a>
+                <a href="/realtime" class="flex items-center px-4 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 transition text-white">Real-time Search</a>
+            </nav>
+        </div>
+
+        <div class="flex-1 gradient-bg flex items-center justify-center px-12">
+            <div class="glass-card w-full max-w-3xl rounded-2xl p-10 shadow-2xl text-white">
+                <h2 class="text-3xl font-bold mb-4">Dataset Analysis</h2>
+                <p class="opacity-90 mb-6">Paste any news article or text below. The system will analyze and classify it.</p>
+
+                <textarea id="textInput" class="w-full h-40 p-4 rounded-xl text-gray-900"></textarea>
+
+                <button onclick="analyzeText()" class="mt-5 bg-white text-indigo-700 px-6 py-3 rounded-xl font-semibold hover:bg-opacity-80 transition">
+                    Analyze Now
+                </button>
+
+                <div id="result" class="mt-6 text-3xl font-bold"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        async function analyzeText() {
+            const text = document.getElementById("textInput").value;
+
+            const response = await fetch("/analyze_dataset", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text })
+            });
+
+            const data = await response.json();
+            const box = document.getElementById("result");
+
+            if (data.error) {
+                box.innerHTML = "❌ " + data.error;
+                box.className = "mt-6 text-3xl font-bold text-red-500";
+            } else {
+                const color = data.result === "REAL" ? "text-green-400" : "text-red-400";
+                box.className = "mt-6 text-3xl font-bold " + color;
+                box.innerHTML = data.result;
+            }
+        }
+    </script>
+
+</body>
+</html>

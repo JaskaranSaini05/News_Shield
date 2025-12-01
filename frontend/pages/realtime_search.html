@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Search - News Shield</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { overflow: hidden; height: 100vh; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .sidebar-gradient { background: linear-gradient(180deg, #1e293b 0%, #334155 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.25); }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="flex h-screen">
+
+        <div class="w-64 sidebar-gradient text-white p-6 flex flex-col">
+            <h1 class="text-2xl font-bold mb-8">News Shield</h1>
+            <nav class="flex-1">
+                <a href="/" class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition text-white">Home</a>
+                <a href="/dataset" class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition text-white">Dataset Analysis</a>
+                <a href="/realtime" class="flex items-center px-4 py-3 rounded-lg bg-white bg-opacity-10 transition text-white">Real-time Search</a>
+            </nav>
+        </div>
+
+        <div class="flex-1 gradient-bg flex items-center justify-center px-12">
+            <div class="glass-card w-full max-w-4xl rounded-2xl p-10 shadow-2xl text-white">
+                <h2 class="text-3xl font-bold mb-4">Real-time News Search</h2>
+                <p class="opacity-90 mb-6">Search news live from Google and get instant credibility verification.</p>
+
+                <div class="flex gap-4">
+                    <input id="query" type="text" class="flex-1 p-4 rounded-xl text-gray-900" placeholder="Search any topic like NASA, elections, business">
+                    <button onclick="searchNews()" class="bg-white text-indigo-700 px-6 py-3 rounded-xl font-semibold hover:bg-opacity-80 transition">Search</button>
+                </div>
+
+                <div id="results" class="mt-6 max-h-[55vh] overflow-y-auto pr-3"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        async function searchNews() {
+            const q = document.getElementById("query").value;
+
+            console.log("Searching for:", q);
+
+            const response = await fetch("/search_news?q=" + q);
+            const data = await response.json();
+
+            console.log("API Response:", data);
+
+            const container = document.getElementById("results");
+            container.innerHTML = "";
+
+            if (!data.articles || data.articles.length === 0) {
+                container.innerHTML = "<p class='text-red-300 text-xl'>No articles found</p>";
+                return;
+            }
+
+            data.articles.forEach(a => {
+                const color = a.prediction === "REAL" ? "text-green-400" : "text-red-400";
+
+                container.innerHTML += `
+                    <div class="p-5 mb-4 rounded-xl bg-white bg-opacity-20 backdrop-blur-lg border border-white border-opacity-30">
+                        <h3 class="text-2xl font-semibold">${a.title}</h3>
+                        <p class="opacity-90 mt-2">${a.snippet}</p>
+                        <a href="${a.link}" target="_blank" class="text-blue-300 underline block mt-2">Open Article</a>
+                        <div class="mt-3 text-2xl font-bold ${color}">${a.prediction}</div>
+                    </div>
+                `;
+            });
+        }
+    </script>
+
+</body>
+</html>
